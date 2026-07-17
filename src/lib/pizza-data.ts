@@ -6,6 +6,7 @@ export interface PizzaItem {
   description: string;
   tag: string;
   prices: Record<PizzaSize, number>;
+  image: string;
   toppingType: "pepperoni" | "margherita" | "bbq-chicken" | "veggie" | "hawaiian" | "meat-feast";
   isBestSeller?: boolean;
 }
@@ -23,6 +24,7 @@ export const PIZZAS: PizzaItem[] = [
     description: "Double pepperoni, mozzarella, slow-roasted tomato",
     tag: "Best seller",
     prices: { small: 10, medium: 15, large: 20 },
+    image: "/images/pizzas/pepperoni.png",
     toppingType: "pepperoni",
     isBestSeller: true,
   },
@@ -32,6 +34,7 @@ export const PIZZAS: PizzaItem[] = [
     description: "San Marzano tomato, fresh basil, buffalo mozzarella",
     tag: "Classic",
     prices: { small: 8, medium: 12, large: 16 },
+    image: "/images/pizzas/margherita.png",
     toppingType: "margherita",
   },
   {
@@ -40,6 +43,7 @@ export const PIZZAS: PizzaItem[] = [
     description: "Smoky BBQ base, grilled chicken, red onion, cheddar",
     tag: "Smoky",
     prices: { small: 10, medium: 15, large: 20 },
+    image: "/images/pizzas/bbq-chicken.png",
     toppingType: "bbq-chicken",
   },
   {
@@ -48,6 +52,7 @@ export const PIZZAS: PizzaItem[] = [
     description: "Peppers, olives, mushroom, sweetcorn, baby spinach",
     tag: "Garden fresh",
     prices: { small: 8, medium: 12, large: 16 },
+    image: "/images/pizzas/veggie-delight.png",
     toppingType: "veggie",
   },
   {
@@ -56,6 +61,7 @@ export const PIZZAS: PizzaItem[] = [
     description: "Sweet pineapple, honey-glazed ham, mozzarella",
     tag: "Sweet & savory",
     prices: { small: 10, medium: 15, large: 20 },
+    image: "/images/pizzas/hawaiian.png",
     toppingType: "hawaiian",
   },
   {
@@ -64,6 +70,7 @@ export const PIZZAS: PizzaItem[] = [
     description: "Pepperoni, ham, beef sausage, bacon, mozzarella",
     tag: "For carnivores",
     prices: { small: 12, medium: 18, large: 24 },
+    image: "/images/pizzas/meat-feast.png",
     toppingType: "meat-feast",
   },
 ];

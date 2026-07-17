@@ -4,68 +4,7 @@ import { motion } from "framer-motion";
 import { ArrowDown, MessageCircle } from "lucide-react";
 import { WHATSAPP_LINK } from "@/lib/pizza-data";
 
-function PizzaSVG({ className }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 300 300"
-      className={className}
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <defs>
-        <radialGradient id="doughG" cx="42%" cy="35%" r="65%">
-          <stop offset="0%" stopColor="#f7dfa0" />
-          <stop offset="70%" stopColor="#e8b95f" />
-          <stop offset="100%" stopColor="#c98a3a" />
-        </radialGradient>
-        <radialGradient id="cheeseG" cx="45%" cy="40%" r="60%">
-          <stop offset="0%" stopColor="#ffe08a" />
-          <stop offset="100%" stopColor="#f3b73f" />
-        </radialGradient>
-        <radialGradient id="sauceG" cx="45%" cy="40%" r="60%">
-          <stop offset="0%" stopColor="#e0523f" />
-          <stop offset="100%" stopColor="#a8281e" />
-        </radialGradient>
-      </defs>
-      <circle cx="150" cy="150" r="140" fill="url(#doughG)" />
-      <circle cx="150" cy="150" r="122" fill="url(#sauceG)" />
-      <circle cx="150" cy="150" r="112" fill="url(#cheeseG)" opacity="0.92" />
-      {/* cheese texture */}
-      <g opacity="0.35" fill="#fff3cf">
-        <ellipse cx="110" cy="90" rx="14" ry="7" transform="rotate(20 110 90)" />
-        <ellipse cx="190" cy="200" rx="16" ry="8" transform="rotate(-15 190 200)" />
-        <ellipse cx="200" cy="100" rx="12" ry="6" transform="rotate(40 200 100)" />
-        <ellipse cx="100" cy="200" rx="12" ry="6" transform="rotate(-30 100 200)" />
-      </g>
-      {/* pepperoni */}
-      <g>
-        {[
-          [105, 95, 20], [185, 85, 19], [150, 150, 21],
-          [90, 175, 18], [205, 170, 19], [120, 220, 18], [195, 220, 17],
-        ].map(([cx, cy, r], i) => (
-          <g key={i}>
-            <circle cx={cx} cy={cy} r={r} fill="#a8281e" />
-            <circle cx={cx} cy={cy} r={r} fill="#c6362b" opacity="0.85" />
-          </g>
-        ))}
-        <g fill="#7a1a12" opacity="0.5">
-          {[
-            [99, 90], [112, 100], [178, 80], [144, 146],
-            [157, 156], [85, 170], [199, 165], [115, 217], [190, 216],
-          ].map(([cx, cy], i) => (
-            <circle key={i} cx={cx} cy={cy} r="2" />
-          ))}
-        </g>
-      </g>
-      {/* basil */}
-      <g fill="#3f5a38">
-        <ellipse cx="140" cy="105" rx="7" ry="4" transform="rotate(30 140 105)" />
-        <ellipse cx="165" cy="185" rx="7" ry="4" transform="rotate(-20 165 185)" />
-        <ellipse cx="80" cy="130" rx="6" ry="3.5" transform="rotate(60 80 130)" />
-      </g>
-      <circle cx="150" cy="150" r="122" fill="none" stroke="#c98a3a" strokeWidth="3" opacity="0.5" />
-    </svg>
-  );
-}
+import Image from "next/image";
 
 function FloatingIngredient({
   children,
@@ -275,8 +214,17 @@ export function Hero() {
                 }}
               />
 
-              {/* Pizza SVG */}
-              <PizzaSVG className="h-[75%] w-[75%]" />
+              {/* Hero Pizza Photo */}
+              <div className="relative h-[82%] w-[82%] overflow-hidden rounded-full">
+                <Image
+                  src="/images/hero-pizza.png"
+                  alt="Wood-fired pepperoni pizza on a rustic board"
+                  fill
+                  className="object-cover"
+                  priority
+                  sizes="(max-width: 640px) 70vw, 400px"
+                />
+              </div>
 
               {/* Steam */}
               <svg

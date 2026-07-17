@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Plus, Minus, Trash2, MessageCircle } from "lucide-react";
+import Image from "next/image";
 import { useCartStore } from "@/store/cart";
 import { SIZE_LABELS, type PizzaSize } from "@/lib/pizza-data";
 import {
@@ -70,11 +71,14 @@ export function CartDrawer() {
                     className="mb-4 flex gap-4 rounded-xl border border-crust/12 bg-white p-3"
                   >
                     {/* Mini pizza thumbnail */}
-                    <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-lg bg-semolina">
-                      <svg viewBox="0 0 140 140" className="h-12 w-12">
-                        <circle cx="70" cy="70" r="66" fill="#f7dfa0" opacity="0.5" />
-                        <circle cx="70" cy="70" r="50" fill="#f3b73f" opacity="0.4" />
-                      </svg>
+                    <div className="relative flex h-16 w-16 flex-shrink-0 overflow-hidden rounded-lg bg-semolina">
+                      <Image
+                        src={item.pizza.image}
+                        alt={item.pizza.name}
+                        fill
+                        className="object-cover"
+                        sizes="64px"
+                      />
                     </div>
 
                     <div className="flex flex-1 flex-col justify-between">

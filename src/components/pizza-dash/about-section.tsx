@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Flame, Clock, Wheat } from "lucide-react";
+import Image from "next/image";
 
 const values = [
   {
@@ -87,15 +88,43 @@ export function AboutSection() {
             </div>
           </motion.div>
 
-          {/* Right: Value cards */}
+          {/* Right: Kitchen image + Value cards */}
           <div className="flex flex-col gap-6">
+            {/* Kitchen photo */}
+            <motion.div
+              initial={{ opacity: 0, x: 40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="relative overflow-hidden rounded-2xl shadow-xl"
+            >
+              <div className="relative h-56 w-full sm:h-64">
+                <Image
+                  src="/images/about-kitchen.png"
+                  alt="Pizza Dash wood-fired pizza oven in our Bulawayo kitchen"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-char/50 to-transparent" />
+              <div className="absolute bottom-4 left-4">
+                <span
+                  className="rounded-lg bg-cheese/90 px-3 py-1.5 text-xs font-extrabold text-char"
+                  style={{ fontFamily: "Caveat, cursive", fontSize: "1.1rem" }}
+                >
+                  Our kitchen, Parklands Bulawayo
+                </span>
+              </div>
+            </motion.div>
+
             {values.map((item, i) => (
               <motion.div
                 key={item.title}
                 initial={{ opacity: 0, x: 40 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.15 }}
+                transition={{ duration: 0.5, delay: 0.1 + i * 0.12 }}
                 className="flex gap-5 rounded-2xl border border-crust/12 bg-cream p-6 shadow-md shadow-ink/5 transition-all hover:shadow-lg hover:shadow-ink/8"
               >
                 <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-tomato/10">
