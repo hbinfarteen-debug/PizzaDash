@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { Plus, Minus, Trash2, MessageCircle } from "lucide-react";
+import { Plus, Minus, Trash2, MessageCircle, Pencil } from "lucide-react";
 import Image from "next/image";
 import { useCartStore } from "@/store/cart";
 import { SIZE_LABELS, type PizzaSize, type Topping, type CartItem } from "@/lib/pizza-data";
@@ -113,8 +113,9 @@ export function CartDrawer() {
                                       setEditingItem(item);
                                       setOpen(false);
                                     }}
-                                    className="text-[11px] font-semibold text-muted-text/50 underline transition-colors hover:text-tomato"
+                                    className="inline-flex items-center gap-1 text-[11px] font-semibold text-muted-text/50 underline transition-colors hover:text-tomato"
                                   >
+                                    <Pencil className="h-3 w-3" />
                                     Edit
                                   </button>
                                 </div>
@@ -124,9 +125,10 @@ export function CartDrawer() {
                                     setEditingItem(item);
                                     setOpen(false);
                                   }}
-                                  className="mt-0.5 text-[11px] font-semibold text-muted-text/50 underline transition-colors hover:text-tomato"
+                                  className="mt-0.5 inline-flex items-center gap-1 text-[11px] font-semibold text-muted-text/50 underline transition-colors hover:text-tomato"
                                 >
-                                  + Add toppings
+                                  <Pencil className="h-3 w-3" />
+                                  Add toppings
                                 </button>
                               )}
                             </div>
