@@ -1,0 +1,190 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@font-face {
+  font-family: 'Anton';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('https://fonts.gstatic.com/s/anton/v25/1Ptgg87GROyAm3K9-C8.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Caveat';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('https://fonts.gstatic.com/s/caveat/v18/WnznHAc5bAfYB2QRah7pcpNvOx-pjfJ9eIWpYQ.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Caveat';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('https://fonts.gstatic.com/s/caveat/v18/WnznHAc5bAfYB2QRah7pcpNvOx-pjcl6eIWpYQ.woff2') format('woff2');
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-display: 'Anton', system-ui, sans-serif;
+  --font-marker: 'Caveat', cursive;
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  /* Pizza Dash custom colors */
+  --color-char: #1b1410;
+  --color-char-2: #241a15;
+  --color-char-3: #2e211a;
+  --color-tomato: #c6362b;
+  --color-tomato-dark: #8f2019;
+  --color-semolina: #f6efe1;
+  --color-semolina-2: #eee1c8;
+  --color-cheese: #f3a712;
+  --color-cheese-dark: #d38e08;
+  --color-basil: #465c3f;
+  --color-crust: #8b5a2b;
+  --color-cream: #faf5e9;
+  --color-ink: #2a1f1a;
+  --color-muted-text: #7a6c5a;
+  --color-whatsapp: #25d366;
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: #f6efe1;
+  --foreground: #2a1f1a;
+  --card: #faf5e9;
+  --card-foreground: #2a1f1a;
+  --popover: #faf5e9;
+  --popover-foreground: #2a1f1a;
+  --primary: #c6362b;
+  --primary-foreground: #faf5e9;
+  --secondary: #eee1c8;
+  --secondary-foreground: #2a1f1a;
+  --muted: #eee1c8;
+  --muted-foreground: #7a6c5a;
+  --accent: #f3a712;
+  --accent-foreground: #1b1410;
+  --destructive: #c6362b;
+  --border: rgba(139, 90, 43, 0.15);
+  --input: rgba(139, 90, 43, 0.2);
+  --ring: #f3a712;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-semolina text-ink;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f6efe1;
+}
+::-webkit-scrollbar-thumb {
+  background: #c98a3a;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #8b5a2b;
+}
+
+/* Texture backgrounds */
+.bg-char-texture {
+  background:
+    radial-gradient(ellipse 900px 500px at 15% -10%, rgba(198, 54, 43, 0.18), transparent 60%),
+    radial-gradient(ellipse 700px 500px at 90% 10%, rgba(243, 167, 18, 0.10), transparent 55%),
+    repeating-linear-gradient(115deg, rgba(255,255,255,0.015) 0px, rgba(255,255,255,0.015) 1px, transparent 1px, transparent 3px),
+    #1b1410;
+}
+
+.bg-crumb {
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,0.035) 1px, transparent 1.5px),
+    radial-gradient(circle, rgba(255,255,255,0.025) 1px, transparent 1.5px);
+  background-size: 60px 60px, 34px 34px;
+  background-position: 0 0, 20px 25px;
+}
+
+/* Animations */
+@keyframes drift {
+  0%, 100% { transform: translateY(0) rotate(var(--r, 0deg)); }
+  50% { transform: translateY(-14px) rotate(calc(var(--r, 0deg) + 6deg)); }
+}
+
+@keyframes steam-rise {
+  0% { opacity: 0; transform: translateY(0) scaleX(1); }
+  30% { opacity: 0.6; }
+  100% { opacity: 0; transform: translateY(-40px) scaleX(2.5); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4); }
+  50% { box-shadow: 0 0 0 12px rgba(37, 211, 102, 0); }
+}
+
+.animate-drift {
+  animation: drift 6s ease-in-out infinite;
+}
+
+.animate-steam {
+  animation: steam-rise 2.5s ease-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Hide scrollbar for horizontal scroll areas */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

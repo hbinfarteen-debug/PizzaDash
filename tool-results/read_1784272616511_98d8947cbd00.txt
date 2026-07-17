@@ -1,0 +1,679 @@
+     1→<!DOCTYPE html>
+     2→<html lang="en">
+     3→<head>
+     4→<meta charset="UTF-8">
+     5→<meta name="viewport" content="width=device-width, initial-scale=1.0">
+     6→<title>Pizza Dash — Bulawayo's Finest Pizza</title>
+     7→<link rel="preconnect" href="https://fonts.googleapis.com">
+     8→<link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+     9→<style>
+    10→  :root{
+    11→    --char:#1b1410;
+    12→    --char-2:#241a15;
+    13→    --char-3:#2e211a;
+    14→    --tomato:#c6362b;
+    15→    --tomato-dark:#8f2019;
+    16→    --semolina:#f6efe1;
+    17→    --semolina-2:#eee1c8;
+    18→    --cheese:#f3a712;
+    19→    --cheese-dark:#d38e08;
+    20→    --basil:#465c3f;
+    21→    --crust:#8b5a2b;
+    22→    --cream:#faf5e9;
+    23→    --ink:#2a1f1a;
+    24→    --muted:#7a6c5a;
+    25→    --whatsapp:#25d366;
+    26→  }
+    27→  *{margin:0;padding:0;box-sizing:border-box;}
+    28→  html{scroll-behavior:smooth;}
+    29→  body{
+    30→    font-family:'Plus Jakarta Sans',sans-serif;
+    31→    background:var(--semolina);
+    32→    color:var(--ink);
+    33→    overflow-x:hidden;
+    34→  }
+    35→  h1,h2,h3,.display{font-family:'Anton',sans-serif;font-weight:400;letter-spacing:0.5px;}
+    36→  .marker{font-family:'Caveat',cursive;}
+    37→  a{text-decoration:none;color:inherit;}
+    38→  img{max-width:100%;display:block;}
+    39→  .wrap{max-width:1200px;margin:0 auto;padding:0 32px;}
+    40→
+    41→  /* ===== texture backgrounds ===== */
+    42→  .char-bg{
+    43→    background:
+    44→      radial-gradient(ellipse 900px 500px at 15% -10%, rgba(198,54,43,0.18), transparent 60%),
+    45→      radial-gradient(ellipse 700px 500px at 90% 10%, rgba(243,167,18,0.10), transparent 55%),
+    46→      repeating-linear-gradient(115deg, rgba(255,255,255,0.015) 0px, rgba(255,255,255,0.015) 1px, transparent 1px, transparent 3px),
+    47→      var(--char);
+    48→  }
+    49→  .crumb-bg{
+    50→    background-image:
+    51→      radial-gradient(circle, rgba(255,255,255,0.035) 1px, transparent 1.5px),
+    52→      radial-gradient(circle, rgba(255,255,255,0.025) 1px, transparent 1.5px);
+    53→    background-size: 60px 60px, 34px 34px;
+    54→    background-position: 0 0, 20px 25px;
+    55→  }
+    56→
+    57→  /* ===== header ===== */
+    58→  header{
+    59→    position:sticky;top:0;z-index:100;
+    60→    background:rgba(27,20,16,0.92);
+    61→    backdrop-filter:blur(10px);
+    62→    border-bottom:1px solid rgba(255,255,255,0.08);
+    63→  }
+    64→  nav{
+    65→    display:flex;align-items:center;justify-content:space-between;
+    66→    padding:18px 32px;max-width:1200px;margin:0 auto;
+    67→  }
+    68→  .logo{
+    69→    font-family:'Anton',sans-serif;color:var(--cream);font-size:24px;letter-spacing:0.5px;
+    70→    display:flex;align-items:center;gap:8px;
+    71→  }
+    72→  .logo span{color:var(--cheese);}
+    73→  .nav-links{display:flex;gap:36px;list-style:none;}
+    74→  .nav-links a{
+    75→    color:rgba(250,245,233,0.75);font-weight:600;font-size:14.5px;
+    76→    letter-spacing:0.3px;transition:color .2s;position:relative;
+    77→  }
+    78→  .nav-links a:hover{color:var(--cream);}
+    79→  .cta-btn{
+    80→    background:var(--cheese);color:var(--char);font-weight:800;
+    81→    padding:12px 22px;border-radius:8px;font-size:14px;letter-spacing:0.3px;
+    82→    display:inline-flex;align-items:center;gap:8px;
+    83→    box-shadow:0 4px 14px rgba(243,167,18,0.3);
+    84→    transition:transform .2s, box-shadow .2s;
+    85→    border:none;cursor:pointer;
+    86→  }
+    87→  .cta-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(243,167,18,0.45);}
+    88→  .burger{display:none;background:none;border:none;color:var(--cream);font-size:24px;cursor:pointer;}
+    89→
+    90→  /* ===== hero ===== */
+    91→  .hero{
+    92→    position:relative;
+    93→    padding:76px 0 40px;
+    94→    overflow:visible;
+    95→  }
+    96→  .hero-grid{
+    97→    display:grid;grid-template-columns:1.05fr 1fr;gap:20px;align-items:center;
+    98→    position:relative;
+    99→  }
+   100→  .eyebrow{
+   101→    display:inline-flex;align-items:center;gap:8px;
+   102→    color:var(--cheese);font-weight:700;font-size:13px;letter-spacing:2px;
+   103→    text-transform:uppercase;margin-bottom:18px;
+   104→  }
+   105→  .eyebrow::before{content:'';width:22px;height:2px;background:var(--tomato);border-radius:2px;}
+   106→  .hero h1{
+   107→    color:var(--cream);font-size:clamp(38px,5.2vw,64px);line-height:1.02;margin-bottom:20px;
+   108→  }
+   109→  .hero h1 .accent{color:var(--tomato);-webkit-text-stroke:1px rgba(255,255,255,0.15);}
+   110→  .hero p.tagline{
+   111→    color:rgba(250,245,233,0.68);font-size:18px;line-height:1.55;max-width:440px;margin-bottom:34px;font-weight:500;
+   112→  }
+   113→  .hero-ctas{display:flex;gap:16px;flex-wrap:wrap;}
+   114→  .btn-primary{
+   115→    background:var(--tomato);color:var(--cream);font-weight:800;font-size:15.5px;
+   116→    padding:16px 34px;border-radius:10px;display:inline-block;
+   117→    box-shadow:0 10px 26px rgba(198,54,43,0.35);
+   118→    border:2px solid transparent;transition:transform .2s,box-shadow .2s;
+   119→  }
+   120→  .btn-primary:hover{transform:translateY(-3px);box-shadow:0 14px 32px rgba(198,54,43,0.5);}
+   121→  .btn-ghost{
+   122→    color:var(--cream);font-weight:700;font-size:15px;padding:16px 8px;
+   123→    display:inline-flex;align-items:center;gap:8px;border-bottom:2px solid rgba(255,255,255,0.25);
+   124→  }
+   125→
+   126→  /* pizza visual */
+   127→  .pizza-stage{position:relative;display:flex;justify-content:center;align-items:center;min-height:440px;}
+   128→  .wood-board{
+   129→    width:400px;height:400px;border-radius:50%;
+   130→    background:
+   131→      radial-gradient(ellipse at 35% 30%, #6b4324, #4a2e17 60%, #3a2311 100%);
+   132→    box-shadow:0 30px 60px rgba(0,0,0,0.55), inset 0 0 0 8px rgba(0,0,0,0.15);
+   133→    position:relative;
+   134→    display:flex;align-items:center;justify-content:center;
+   135→  }
+   136→  .wood-board::before{
+   137→    content:'';position:absolute;inset:0;border-radius:50%;
+   138→    background:repeating-radial-gradient(circle at 50% 50%, rgba(0,0,0,0.06) 0px, transparent 2px, transparent 8px);
+   139→  }
+   140→  .steam{position:absolute;top:-6px;left:50%;width:2px;}
+   141→  .float-item{position:absolute;filter:drop-shadow(0 8px 12px rgba(0,0,0,0.4));animation:drift 6s ease-in-out infinite;}
+   142→  @keyframes drift{
+   143→    0%,100%{transform:translateY(0) rotate(var(--r,0deg));}
+   144→    50%{transform:translateY(-14px) rotate(calc(var(--r,0deg) + 6deg));}
+   145→  }
+   146→  .badge-stamp{
+   147→    position:absolute;top:6px;right:-6px;width:112px;height:112px;
+   148→    transform:rotate(10deg);z-index:5;
+   149→  }
+   150→
+   151→  /* crust divider */
+   152→  .crust-divider{position:relative;height:120px;margin-top:-2px;}
+   153→  .crust-divider svg{display:block;width:100%;height:100%;}
+   154→
+   155→  /* section headings */
+   156→  .section-head{text-align:center;max-width:640px;margin:0 auto 52px;}
+   157→  .section-head .eyebrow-dark{
+   158→    color:var(--tomato-dark);font-weight:800;font-size:12.5px;letter-spacing:2.5px;text-transform:uppercase;
+   159→    display:block;margin-bottom:10px;
+   160→  }
+   161→  .section-head h2{font-size:clamp(30px,4vw,42px);color:var(--ink);line-height:1.1;}
+   162→  .section-head p{color:var(--muted);margin-top:14px;font-size:16.5px;font-weight:500;line-height:1.5;}
+   163→
+   164→  /* fresh section */
+   165→  .fresh-section{background:var(--semolina);padding:10px 0 80px;position:relative;}
+   166→
+   167→  /* flavor grid */
+   168→  .flavor-grid{
+   169→    display:grid;grid-template-columns:repeat(3,1fr);gap:26px;
+   170→  }
+   171→  .flavor-card{
+   172→    background:var(--cream);border-radius:20px;padding:30px 26px 26px;
+   173→    text-align:center;border:1px solid rgba(139,90,43,0.12);
+   174→    box-shadow:0 10px 26px rgba(43,30,20,0.06);
+   175→    transition:transform .25s, box-shadow .25s;
+   176→  }
+   177→  .flavor-card:hover{transform:translateY(-8px);box-shadow:0 20px 38px rgba(43,30,20,0.14);}
+   178→  .flavor-card .mini-pizza{width:132px;height:132px;margin:0 auto 18px;}
+   179→  .flavor-card h3{font-size:19px;color:var(--ink);margin-bottom:6px;letter-spacing:0.3px;}
+   180→  .flavor-card p{color:var(--muted);font-size:14px;font-weight:600;}
+   181→  .flavor-tag{
+   182→    display:inline-block;margin-top:12px;font-size:11.5px;font-weight:800;
+   183→    color:var(--basil);background:rgba(70,92,63,0.1);padding:5px 12px;border-radius:20px;
+   184→    letter-spacing:0.5px;text-transform:uppercase;
+   185→  }
+   186→
+   187→  /* how to order */
+   188→  .order-section{background:var(--char);position:relative;padding:90px 0;color:var(--cream);}
+   189→  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-bottom:60px;}
+   190→  .step{position:relative;padding:34px 26px;background:var(--char-2);border-radius:18px;border:1px solid rgba(255,255,255,0.06);}
+   191→  .step .num{
+   192→    font-family:'Anton',sans-serif;font-size:46px;color:var(--tomato);opacity:0.9;line-height:1;margin-bottom:14px;
+   193→  }
+   194→  .step h3{font-size:19px;margin-bottom:10px;letter-spacing:0.3px;}
+   195→  .step p{color:rgba(250,245,233,0.6);font-size:14.5px;line-height:1.5;font-weight:500;}
+   196→
+   197→  .whatsapp-callout{
+   198→    background:linear-gradient(135deg, #1f6b3e, #184f2e);
+   199→    border-radius:22px;padding:44px 48px;
+   200→    display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;
+   201→    box-shadow:0 20px 50px rgba(0,0,0,0.35);
+   202→    border:1px solid rgba(255,255,255,0.08);
+   203→  }
+   204→  .whatsapp-callout .wa-left{display:flex;align-items:center;gap:20px;}
+   205→  .wa-icon{
+   206→    width:64px;height:64px;background:var(--whatsapp);border-radius:16px;
+   207→    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+   208→  }
+   209→  .whatsapp-callout h3{font-size:22px;margin-bottom:6px;}
+   210→  .whatsapp-callout .wa-number{font-size:26px;font-family:'Anton',sans-serif;color:var(--cheese);letter-spacing:0.5px;}
+   211→  .whatsapp-callout .wa-sub{color:rgba(250,245,233,0.65);font-size:14px;font-weight:600;margin-top:2px;}
+   212→  .wa-btn{
+   213→    background:var(--whatsapp);color:#fff;font-weight:800;font-size:16px;
+   214→    padding:18px 32px;border-radius:12px;display:inline-flex;align-items:center;gap:10px;
+   215→    box-shadow:0 10px 24px rgba(37,211,102,0.35);transition:transform .2s;
+   216→  }
+   217→  .wa-btn:hover{transform:translateY(-3px);}
+   218→
+   219→  /* order-now cards */
+   220→  .picks-section{background:var(--semolina-2);padding:80px 0;}
+   221→  .picks-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
+   222→  .pick-card{
+   223→    background:var(--cream);border-radius:18px;overflow:hidden;
+   224→    border:1px solid rgba(139,90,43,0.12);box-shadow:0 8px 20px rgba(43,30,20,0.06);
+   225→    transition:transform .2s, box-shadow .2s;
+   226→  }
+   227→  .pick-card:hover{transform:translateY(-6px);box-shadow:0 16px 30px rgba(43,30,20,0.12);}
+   228→  .pick-thumb{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 40% 30%, #fdf6e6, #f3e6c8);padding:14px;}
+   229→  .pick-thumb .mini-pizza{width:100%;height:100%;}
+   230→  .pick-info{padding:16px 18px 20px;}
+   231→  .pick-info h4{font-size:16px;margin-bottom:4px;}
+   232→  .pick-info .price{color:var(--tomato-dark);font-weight:800;font-size:15px;margin-bottom:12px;}
+   233→  .add-btn{
+   234→    width:100%;background:var(--ink);color:var(--cream);font-weight:700;font-size:13.5px;
+   235→    padding:10px;border-radius:8px;border:none;cursor:pointer;letter-spacing:0.3px;
+   236→    transition:background .2s;
+   237→  }
+   238→  .add-btn:hover{background:var(--tomato-dark);}
+   239→
+   240→  /* footer */
+   241→  footer{background:var(--char);color:rgba(250,245,233,0.72);padding:70px 0 26px;}
+   242→  .footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.1fr;gap:40px;margin-bottom:52px;}
+   243→  .footer-grid h4{color:var(--cream);font-size:14px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:20px;font-weight:800;}
+   244→  .footer-logo{font-family:'Anton',sans-serif;color:var(--cream);font-size:22px;margin-bottom:14px;}
+   245→  .footer-logo span{color:var(--cheese);}
+   246→  .footer-grid p{font-size:14px;line-height:1.7;}
+   247→  .footer-links{list-style:none;}
+   248→  .footer-links li{margin-bottom:11px;}
+   249→  .footer-links a{font-size:14px;transition:color .2s;}
+   250→  .footer-links a:hover{color:var(--cheese);}
+   251→  .social-row{display:flex;gap:12px;margin-top:16px;}
+   252→  .social-row a{
+   253→    width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,0.06);
+   254→    display:flex;align-items:center;justify-content:center;transition:background .2s;
+   255→  }
+   256→  .social-row a:hover{background:var(--tomato);}
+   257→  .payment-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;}
+   258→  .pay-chip{
+   259→    background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);
+   260→    padding:8px 14px;border-radius:8px;font-size:12.5px;font-weight:700;color:rgba(250,245,233,0.75);
+   261→  }
+   262→  .footer-bottom{
+   263→    border-top:1px solid rgba(255,255,255,0.08);padding-top:26px;
+   264→    display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:13px;color:rgba(250,245,233,0.4);
+   265→  }
+   266→
+   267→  @media (prefers-reduced-motion: reduce){
+   268→    .float-item{animation:none;}
+   269→  }
+   270→
+   271→  @media (max-width:920px){
+   272→    .nav-links,.burger-hidden{display:none;}
+   273→    .hero-grid{grid-template-columns:1fr;}
+   274→    .pizza-stage{margin-top:20px;min-height:340px;}
+   275→    .flavor-grid{grid-template-columns:repeat(2,1fr);}
+   276→    .steps{grid-template-columns:1fr;}
+   277→    .picks-grid{grid-template-columns:repeat(2,1fr);}
+   278→    .footer-grid{grid-template-columns:1fr 1fr;}
+   279→    .whatsapp-callout{flex-direction:column;align-items:flex-start;}
+   280→  }
+   281→  @media (max-width:560px){
+   282→    .flavor-grid{grid-template-columns:1fr;}
+   283→    .picks-grid{grid-template-columns:1fr;}
+   284→    .footer-grid{grid-template-columns:1fr;}
+   285→    .wood-board{width:280px;height:280px;}
+   286→  }
+   287→</style>
+   288→</head>
+   289→<body>
+   290→
+   291→<!-- ============ SVG DEFS (reusable pizza parts) ============ -->
+   292→<svg width="0" height="0" style="position:absolute">
+   293→  <defs>
+   294→    <radialGradient id="doughGrad" cx="42%" cy="35%" r="65%">
+   295→      <stop offset="0%" stop-color="#f7dfa0"/>
+   296→      <stop offset="70%" stop-color="#e8b95f"/>
+   297→      <stop offset="100%" stop-color="#c98a3a"/>
+   298→    </radialGradient>
+   299→    <radialGradient id="cheeseGrad" cx="45%" cy="40%" r="60%">
+   300→      <stop offset="0%" stop-color="#ffe08a"/>
+   301→      <stop offset="100%" stop-color="#f3b73f"/>
+   302→    </radialGradient>
+   303→    <radialGradient id="sauceGrad" cx="45%" cy="40%" r="60%">
+   304→      <stop offset="0%" stop-color="#e0523f"/>
+   305→      <stop offset="100%" stop-color="#a8281e"/>
+   306→    </radialGradient>
+   307→  </defs>
+   308→</svg>
+   309→
+   310→<!-- ============ HEADER ============ -->
+   311→<header>
+   312→  <nav>
+   313→    <div class="logo">PIZZA<span>DASH</span></div>
+   314→    <ul class="nav-links">
+   315→      <li><a href="#home">Home</a></li>
+   316→      <li><a href="#menu">Pizza Menu</a></li>
+   317→      <li><a href="#about">About Us</a></li>
+   318→      <li><a href="#location">Location</a></li>
+   319→    </ul>
+   320→    <a href="https://wa.me/263776867162" class="cta-btn" target="_blank" rel="noopener">
+   321→      <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1s-.5-.1-.7.1-.7 1-.9 1.2-.4.2-.7.1a8.2 8.2 0 0 1-2.4-1.5 9 9 0 0 1-1.7-2.1c-.2-.3 0-.5.1-.6l.5-.6c.1-.2.2-.3.3-.5s0-.4 0-.5-.7-1.7-1-2.3-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4A2.5 2.5 0 0 0 6 8.5c0 1.4 1 2.8 1.2 3s2 3 4.8 4.2c2.9 1.2 2.9.8 3.4.8s1.7-.7 1.9-1.4.2-1.2.2-1.4-.2-.2-.5-.3z" fill="#1b1410"/><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.1 8.1 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z" fill="#1b1410"/></svg>
+   322→      Order on WhatsApp
+   323→    </a>
+   324→  </nav>
+   325→</header>
+   326→
+   327→<!-- ============ HERO ============ -->
+   328→<section id="home" class="char-bg crumb-bg hero">
+   329→  <div class="wrap hero-grid">
+   330→    <div>
+   331→      <span class="eyebrow">Bulawayo · Est. Fresh Daily</span>
+   332→      <h1>PIZZA DASH:<br>BULAWAYO'S <span class="accent">FINEST</span> PIZZA.</h1>
+   333→      <p class="tagline">Fresh, hand-crafted, and delivered. Nothing else on the menu — because pizza is the only thing we've ever needed to get right.</p>
+   334→      <div class="hero-ctas">
+   335→        <a href="https://wa.me/263776867162" class="btn-primary">Order Now</a>
+   336→        <a href="#menu" class="btn-ghost">See the menu →</a>
+   337→      </div>
+   338→    </div>
+   339→
+   340→    <div class="pizza-stage">
+   341→      <div class="wood-board">
+   342→        <svg viewBox="0 0 300 300" width="290" height="290">
+   343→          <circle cx="150" cy="150" r="140" fill="url(#doughGrad)"/>
+   344→          <circle cx="150" cy="150" r="122" fill="url(#sauceGrad)"/>
+   345→          <circle cx="150" cy="150" r="112" fill="url(#cheeseGrad)" opacity="0.92"/>
+   346→          <!-- cheese texture -->
+   347→          <g opacity="0.35" fill="#fff3cf">
+   348→            <ellipse cx="110" cy="90" rx="14" ry="7" transform="rotate(20 110 90)"/>
+   349→            <ellipse cx="190" cy="200" rx="16" ry="8" transform="rotate(-15 190 200)"/>
+   350→            <ellipse cx="200" cy="100" rx="12" ry="6" transform="rotate(40 200 100)"/>
+   351→            <ellipse cx="100" cy="200" rx="12" ry="6" transform="rotate(-30 100 200)"/>
+   352→          </g>
+   353→          <!-- pepperoni -->
+   354→          <g>
+   355→            <circle cx="105" cy="95" r="20" fill="#a8281e"/><circle cx="105" cy="95" r="20" fill="#c6362b" opacity="0.85"/>
+   356→            <circle cx="185" cy="85" r="19" fill="#a8281e"/><circle cx="185" cy="85" r="19" fill="#c6362b" opacity="0.85"/>
+   357→            <circle cx="150" cy="150" r="21" fill="#a8281e"/><circle cx="150" cy="150" r="21" fill="#c6362b" opacity="0.85"/>
+   358→            <circle cx="90" cy="175" r="18" fill="#a8281e"/><circle cx="90" cy="175" r="18" fill="#c6362b" opacity="0.85"/>
+   359→            <circle cx="205" cy="170" r="19" fill="#a8281e"/><circle cx="205" cy="170" r="19" fill="#c6362b" opacity="0.85"/>
+   360→            <circle cx="120" cy="220" r="18" fill="#a8281e"/><circle cx="120" cy="220" r="18" fill="#c6362b" opacity="0.85"/>
+   361→            <circle cx="195" cy="220" r="17" fill="#a8281e"/><circle cx="195" cy="220" r="17" fill="#c6362b" opacity="0.85"/>
+   362→            <!-- pepperoni speckles -->
+   363→            <g fill="#7a1a12" opacity="0.5">
+   364→              <circle cx="99" cy="90" r="2"/><circle cx="112" cy="100" r="2"/><circle cx="178" cy="80" r="2"/>
+   365→              <circle cx="144" cy="146" r="2"/><circle cx="157" cy="156" r="2"/><circle cx="85" cy="170" r="2"/>
+   366→              <circle cx="199" cy="165" r="2"/><circle cx="115" cy="217" r="2"/><circle cx="190" cy="216" r="2"/>
+   367→            </g>
+   368→          </g>
+   369→          <!-- basil -->
+   370→          <g fill="#3f5a38">
+   371→            <ellipse cx="140" cy="105" rx="7" ry="4" transform="rotate(30 140 105)"/>
+   372→            <ellipse cx="165" cy="185" rx="7" ry="4" transform="rotate(-20 165 185)"/>
+   373→            <ellipse cx="80" cy="130" rx="6" ry="3.5" transform="rotate(60 80 130)"/>
+   374→          </g>
+   375→          <!-- crust ring -->
+   376→          <circle cx="150" cy="150" r="122" fill="none" stroke="#c98a3a" stroke-width="3" opacity="0.5"/>
+   377→        </svg>
+   378→      </div>
+   379→
+   380→      <!-- floating ingredients -->
+   381→      <svg class="float-item" style="top:6%;left:2%;--r:-8deg" width="46" height="46" viewBox="0 0 46 46">
+   382→        <ellipse cx="23" cy="23" rx="12" ry="19" fill="#3f5a38" transform="rotate(-20 23 23)"/>
+   383→        <path d="M23 6 L23 40" stroke="#2d4227" stroke-width="1.5" transform="rotate(-20 23 23)"/>
+   384→      </svg>
+   385→      <svg class="float-item" style="top:2%;right:10%;--r:12deg;animation-delay:.8s" width="34" height="34" viewBox="0 0 34 34">
+   386→        <circle cx="17" cy="17" r="15" fill="#a8281e"/><circle cx="17" cy="17" r="15" fill="#c6362b" opacity="0.85"/>
+   387→        <circle cx="12" cy="13" r="1.6" fill="#7a1a12" opacity="0.6"/><circle cx="21" cy="20" r="1.6" fill="#7a1a12" opacity="0.6"/>
+   388→      </svg>
+   389→      <svg class="float-item" style="bottom:14%;left:-2%;--r:6deg;animation-delay:1.4s" width="38" height="38" viewBox="0 0 38 38">
+   390→        <path d="M19 4c8 4 12 12 8 22-2 5-8 8-13 5-6-3-8-11-3-17 2 4 1 8-1 10 4-1 7-5 6-10-1-4-3-7 3-10z" fill="#c6362b"/>
+   391→        <rect x="17" y="1" width="4" height="6" rx="2" fill="#3f5a38"/>
+   392→      </svg>
+   393→      <svg class="float-item" style="bottom:4%;right:4%;--r:-10deg;animation-delay:.4s" width="42" height="30" viewBox="0 0 42 30">
+   394→        <path d="M2 22c6 4 12-6 18-2s10 8 16 2c2-4-2-8-6-6-4 2-8-4-14-2-6 2-8 6-14 8z" fill="#ffe08a"/>
+   395→      </svg>
+   396→
+   397→      <!-- hand-stamp signature badge -->
+   398→      <svg class="badge-stamp" viewBox="0 0 120 120">
+   399→        <circle cx="60" cy="60" r="54" fill="none" stroke="var(--cheese)" stroke-width="2.5" stroke-dasharray="4 3"/>
+   400→        <path id="stampCircle" d="M 60 14 A 46 46 0 1 1 59.9 14" fill="none"/>
+   401→        <text font-family="Plus Jakarta Sans" font-weight="800" font-size="9.5" fill="#f6efe1" letter-spacing="2">
+   402→          <textPath href="#stampCircle" startOffset="2%">HOT FROM THE OVEN • FRESH DAILY •</textPath>
+   403→        </text>
+   404→        <text x="60" y="56" text-anchor="middle" font-family="Caveat" font-weight="700" font-size="22" fill="var(--cheese)" transform="rotate(-6 60 56)">100%</text>
+   405→        <text x="60" y="76" text-anchor="middle" font-family="Caveat" font-weight="700" font-size="20" fill="#f6efe1" transform="rotate(-6 60 76)">wood-fired</text>
+   406→      </svg>
+   407→    </div>
+   408→  </div>
+   409→</section>
+   410→
+   411→<!-- ============ CHARRED CRUST DIVIDER (signature element) ============ -->
+   412→<div class="crust-divider">
+   413→  <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+   414→    <path d="M0,40 Q40,10 90,42 T190,38 Q220,60 260,36 T350,44 Q380,20 420,46 T520,40
+   415→             Q555,64 600,38 T700,42 Q735,18 780,44 T880,38 Q915,60 960,40 T1060,44
+   416→             Q1100,20 1140,42 T1200,38 L1200,0 L0,0 Z" fill="var(--char)"/>
+   417→    <path d="M0,40 Q40,10 90,42 T190,38 Q220,60 260,36 T350,44 Q380,20 420,46 T520,40
+   418→             Q555,64 600,38 T700,42 Q735,18 780,44 T880,38 Q915,60 960,40 T1060,44
+   419→             Q1100,20 1140,42 T1200,38 L1200,120 L0,120 Z" fill="var(--semolina)"/>
+   420→    <!-- charred bite marks along crust edge -->
+   421→    <g fill="var(--semolina)">
+   422→      <circle cx="150" cy="34" r="9"/>
+   423→      <circle cx="470" cy="38" r="7"/>
+   424→      <circle cx="820" cy="36" r="10"/>
+   425→      <circle cx="1090" cy="32" r="6"/>
+   426→    </g>
+   427→    <g fill="#3a2416" opacity="0.5">
+   428→      <circle cx="90" cy="42" r="2.5"/><circle cx="260" cy="36" r="2"/><circle cx="420" cy="46" r="2.5"/>
+   429→      <circle cx="600" cy="38" r="2"/><circle cx="780" cy="44" r="2.5"/><circle cx="960" cy="40" r="2"/>
+   430→      <circle cx="1140" cy="42" r="2.5"/>
+   431→    </g>
+   432→  </svg>
+   433→</div>
+   434→
+   435→<!-- ============ FRESH / INTRO STRIP ============ -->
+   436→<section class="fresh-section">
+   437→  <div class="wrap section-head">
+   438→    <span class="eyebrow-dark">Six flavors, one obsession</span>
+   439→    <h2>Fresh, Hot &amp; Made to Order</h2>
+   440→    <p>Every base is proofed for 24 hours and every pie goes into the oven the moment you order — never before. That's the whole menu strategy.</p>
+   441→  </div>
+   442→
+   443→  <!-- ============ FLAVOR SHOWCASE ============ -->
+   444→  <div class="wrap" id="menu">
+   445→    <div class="flavor-grid">
+   446→
+   447→      <div class="flavor-card">
+   448→        <svg class="mini-pizza" viewBox="0 0 140 140"><circle cx="70" cy="70" r="66" fill="url(#doughGrad)"/><circle cx="70" cy="70" r="56" fill="url(#sauceGrad)"/><circle cx="70" cy="70" r="50" fill="url(#cheeseGrad)"/>
+   449→          <g fill="#c6362b"><circle cx="50" cy="48" r="10"/><circle cx="90" cy="45" r="9"/><circle cx="70" cy="72" r="10"/><circle cx="48" cy="88" r="9"/><circle cx="92" cy="90" r="9"/></g>
+   450→        </svg>
+   451→        <h3>Pepperoni Passion</h3>
+   452→        <p>Double pepperoni, mozzarella, slow-roasted tomato</p>
+   453→        <span class="flavor-tag">Best seller</span>
+   454→      </div>
+   455→
+   456→      <div class="flavor-card">
+   457→        <svg class="mini-pizza" viewBox="0 0 140 140"><circle cx="70" cy="70" r="66" fill="url(#doughGrad)"/><circle cx="70" cy="70" r="56" fill="url(#sauceGrad)"/><circle cx="70" cy="70" r="50" fill="url(#cheeseGrad)"/>
+   458→          <g fill="#3f5a38"><ellipse cx="55" cy="55" rx="8" ry="4" transform="rotate(30 55 55)"/><ellipse cx="88" cy="70" rx="8" ry="4" transform="rotate(-20 88 70)"/><ellipse cx="60" cy="90" rx="7" ry="4" transform="rotate(50 60 90)"/></g>
+   459→          <g fill="#fff" opacity="0.5"><circle cx="70" cy="50" r="6"/><circle cx="95" cy="95" r="5"/><circle cx="45" cy="80" r="5"/></g>
+   460→        </svg>
+   461→        <h3>Margherita Supreme</h3>
+   462→        <p>San Marzano tomato, fresh basil, buffalo mozzarella</p>
+   463→        <span class="flavor-tag">Classic</span>
+   464→      </div>
+   465→
+   466→      <div class="flavor-card">
+   467→        <svg class="mini-pizza" viewBox="0 0 140 140"><circle cx="70" cy="70" r="66" fill="url(#doughGrad)"/><circle cx="70" cy="70" r="56" fill="#8b4a1f"/><circle cx="70" cy="70" r="50" fill="url(#cheeseGrad)" opacity="0.9"/>
+   468→          <g fill="#c9873f"><ellipse cx="55" cy="50" rx="11" ry="7"/><ellipse cx="90" cy="55" rx="10" ry="7"/><ellipse cx="65" cy="85" rx="12" ry="7"/><ellipse cx="95" cy="90" rx="9" ry="6"/></g>
+   469→          <g stroke="#5a3a17" stroke-width="1" opacity="0.6"><line x1="30" y1="40" x2="110" y2="100"/><line x1="30" y1="60" x2="110" y2="60"/></g>
+   470→        </svg>
+   471→        <h3>BBQ Chicken</h3>
+   472→        <p>Smoky BBQ base, grilled chicken, red onion, cheddar</p>
+   473→        <span class="flavor-tag">Smoky</span>
+   474→      </div>
+   475→
+   476→      <div class="flavor-card">
+   477→        <svg class="mini-pizza" viewBox="0 0 140 140"><circle cx="70" cy="70" r="66" fill="url(#doughGrad)"/><circle cx="70" cy="70" r="56" fill="url(#sauceGrad)"/><circle cx="70" cy="70" r="50" fill="url(#cheeseGrad)"/>
+   478→          <g fill="#c6362b"><circle cx="55" cy="50" r="6"/><circle cx="90" cy="55" r="6"/></g>
+   479→          <g fill="#3f5a38"><ellipse cx="70" cy="45" rx="6" ry="9"/><ellipse cx="95" cy="85" rx="6" ry="9"/></g>
+   480→          <g fill="#e8b95f"><ellipse cx="50" cy="90" rx="9" ry="6"/></g>
+   481→          <g fill="#7a1a12"><circle cx="60" cy="70" r="4"/><circle cx="80" cy="95" r="4"/></g>
+   482→        </svg>
+   483→        <h3>Veggie Delight</h3>
+   484→        <p>Peppers, olives, mushroom, sweetcorn, baby spinach</p>
+   485→        <span class="flavor-tag">Garden fresh</span>
+   486→      </div>
+   487→
+   488→      <div class="flavor-card">
+   489→        <svg class="mini-pizza" viewBox="0 0 140 140"><circle cx="70" cy="70" r="66" fill="url(#doughGrad)"/><circle cx="70" cy="70" r="56" fill="url(#sauceGrad)"/><circle cx="70" cy="70" r="50" fill="url(#cheeseGrad)"/>
+   490→          <g fill="#f3d34a"><path d="M55 45 a8 8 0 1 1 0.1 0z"/><path d="M92 70 a7 7 0 1 1 0.1 0z"/><path d="M60 92 a7 7 0 1 1 0.1 0z"/></g>
+   491→          <g fill="#c98a3a"><rect x="70" y="50" width="16" height="10" rx="3"/><rect x="40" y="80" width="16" height="10" rx="3"/></g>
+   492→        </svg>
+   493→        <h3>Hawaiian Crown</h3>
+   494→        <p>Sweet pineapple, honey-glazed ham, mozzarella</p>
+   495→        <span class="flavor-tag">Sweet &amp; savory</span>
+   496→      </div>
+   497→
+   498→      <div class="flavor-card">
+   499→        <svg class="mini-pizza" viewBox="0 0 140 140"><circle cx="70" cy="70" r="66" fill="url(#doughGrad)"/><circle cx="70" cy="70" r="56" fill="url(#sauceGrad)"/><circle cx="70" cy="70" r="50" fill="url(#cheeseGrad)"/>
+   500→          <g fill="#c6362b"><circle cx="52" cy="55" r="8"/><circle cx="90" cy="50" r="8"/></g>
+   501→          <g fill="#8b4a1f"><ellipse cx="72" cy="75" rx="9" ry="6"/></g>
+   502→          <g fill="#c98a3a"><rect x="45" y="85" width="14" height="9" rx="3"/></g>
+   503→          <g fill="#7a1a12"><circle cx="95" cy="90" r="6"/></g>
+   504→        </svg>
+   505→        <h3>Meat Feast</h3>
+   506→        <p>Pepperoni, ham, beef sausage, bacon, mozzarella</p>
+   507→        <span class="flavor-tag">For carnivores</span>
+   508→      </div>
+   509→
+   510→    </div>
+   511→  </div>
+   512→</section>
+   513→
+   514→<!-- ============ HOW TO ORDER ============ -->
+   515→<section class="order-section crumb-bg" id="about">
+   516→  <div class="wrap">
+   517→    <div class="section-head">
+   518→      <span class="eyebrow-dark" style="color:var(--cheese)">Three steps, no app required</span>
+   519→      <h2 style="color:var(--cream)">How to Order: Easy as One-Two-Pizza</h2>
+   520→      <p style="color:rgba(250,245,233,0.6)">No account, no app download. Message us, tell us what you're craving, and we'll dash it to your door.</p>
+   521→    </div>
+   522→
+   523→    <div class="steps">
+   524→      <div class="step">
+   525→        <div class="num">01</div>
+   526→        <h3>Message us on WhatsApp</h3>
+   527→        <p>Tap the button below or save +263 77 686 7162 and send us a message any time we're open.</p>
+   528→      </div>
+   529→      <div class="step">
+   530→        <div class="num">02</div>
+   531→        <h3>Pick your pizza &amp; size</h3>
+   532→        <p>Choose from the six flavors above, tell us your size, and confirm your delivery address in Bulawayo.</p>
+   533→      </div>
+   534→      <div class="step">
+   535→        <div class="num">03</div>
+   536→        <h3>Pay &amp; track your dash</h3>
+   537→        <p>Pay via EcoCash or card on delivery. We'll message you the moment your pizza leaves the oven.</p>
+   538→      </div>
+   539→    </div>
+   540→
+   541→    <div class="whatsapp-callout" id="location">
+   542→      <div class="wa-left">
+   543→        <div class="wa-icon">
+   544→          <svg width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1s-.5-.1-.7.1-.7 1-.9 1.2-.4.2-.7.1a8.2 8.2 0 0 1-2.4-1.5 9 9 0 0 1-1.7-2.1c-.2-.3 0-.5.1-.6l.5-.6c.1-.2.2-.3.3-.5s0-.4 0-.5-.7-1.7-1-2.3-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4A2.5 2.5 0 0 0 6 8.5c0 1.4 1 2.8 1.2 3s2 3 4.8 4.2c2.9 1.2 2.9.8 3.4.8s1.7-.7 1.9-1.4.2-1.2.2-1.4-.2-.2-.5-.3z" fill="#fff"/><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.1 8.1 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z" fill="#fff"/></svg>
+   545→        </div>
+   546→        <div>
+   547→          <h3>Order directly on WhatsApp</h3>
+   548→          <div class="wa-number">+263 77 686 7162</div>
+   549→          <div class="wa-sub">Delivering across Bulawayo, daily 10am–9pm</div>
+   550→        </div>
+   551→      </div>
+   552→      <a href="https://wa.me/263776867162" class="wa-btn">
+   553→        Chat &amp; Order →
+   554→      </a>
+   555→    </div>
+   556→  </div>
+   557→</section>
+   558→
+   559→<!-- ============ PICKS / FOOTER CARD ROW ============ -->
+   560→<section class="picks-section">
+   561→  <div class="wrap">
+   562→    <div class="section-head">
+   563→      <span class="eyebrow-dark">Quick add</span>
+   564→      <h2>Tonight's Top Picks</h2>
+   565→      <p>The four Bulawayo can't stop ordering — tap to add and we'll take it from there.</p>
+   566→    </div>
+   567→
+   568→    <div class="picks-grid">
+   569→      <div class="pick-card">
+   570→        <div class="pick-thumb">
+   571→          <svg class="mini-pizza" viewBox="0 0 140 140"><circle cx="70" cy="70" r="66" fill="url(#doughGrad)"/><circle cx="70" cy="70" r="56" fill="url(#sauceGrad)"/><circle cx="70" cy="70" r="50" fill="url(#cheeseGrad)"/>
+   572→            <g fill="#c6362b"><circle cx="50" cy="48" r="10"/><circle cx="90" cy="45" r="9"/><circle cx="70" cy="72" r="10"/><circle cx="48" cy="88" r="9"/><circle cx="92" cy="90" r="9"/></g>
+   573→          </svg>
+   574→        </div>
+   575→        <div class="pick-info">
+   576→          <h4>Pepperoni</h4>
+   577→          <div class="price">$10 / $15 / $20</div>
+   578→          <button class="add-btn" onclick="window.open('https://wa.me/263776867162?text=Hi%20Pizza%20Dash%2C%20I%27d%20like%20to%20order%20a%20Pepperoni%20pizza','_blank')">Add to Order</button>
+   579→        </div>
+   580→      </div>
+   581→
+   582→      <div class="pick-card">
+   583→        <div class="pick-thumb">
+   584→          <svg class="mini-pizza" viewBox="0 0 140 140"><circle cx="70" cy="70" r="66" fill="url(#doughGrad)"/><circle cx="70" cy="70" r="56" fill="url(#sauceGrad)"/><circle cx="70" cy="70" r="50" fill="url(#cheeseGrad)"/>
+   585→            <g fill="#3f5a38"><ellipse cx="55" cy="55" rx="8" ry="4" transform="rotate(30 55 55)"/><ellipse cx="88" cy="70" rx="8" ry="4" transform="rotate(-20 88 70)"/><ellipse cx="60" cy="90" rx="7" ry="4" transform="rotate(50 60 90)"/></g>
+   586→          </svg>
+   587→        </div>
+   588→        <div class="pick-info">
+   589→          <h4>Margherita</h4>
+   590→          <div class="price">$8 / $12 / $16</div>
+   591→          <button class="add-btn" onclick="window.open('https://wa.me/263776867162?text=Hi%20Pizza%20Dash%2C%20I%27d%20like%20to%20order%20a%20Margherita%20pizza','_blank')">Add to Order</button>
+   592→        </div>
+   593→      </div>
+   594→
+   595→      <div class="pick-card">
+   596→        <div class="pick-thumb">
+   597→          <svg class="mini-pizza" viewBox="0 0 140 140"><circle cx="70" cy="70" r="66" fill="url(#doughGrad)"/><circle cx="70" cy="70" r="56" fill="url(#sauceGrad)"/><circle cx="70" cy="70" r="50" fill="url(#cheeseGrad)"/>
+   598→            <g fill="#f3d34a"><path d="M55 45 a8 8 0 1 1 0.1 0z"/><path d="M92 70 a7 7 0 1 1 0.1 0z"/></g>
+   599→            <g fill="#c98a3a"><rect x="70" y="50" width="16" height="10" rx="3"/><rect x="40" y="80" width="16" height="10" rx="3"/></g>
+   600→          </svg>
+   601→        </div>
+   602→        <div class="pick-info">
+   603→          <h4>Hawaiian Crown</h4>
+   604→          <div class="price">$10 / $15 / $20</div>
+   605→          <button class="add-btn" onclick="window.open('https://wa.me/263776867162?text=Hi%20Pizza%20Dash%2C%20I%27d%20like%20to%20order%20a%20Hawaiian%20Crown%20pizza','_blank')">Add to Order</button>
+   606→        </div>
+   607→      </div>
+   608→
+   609→      <div class="pick-card">
+   610→        <div class="pick-thumb">
+   611→          <svg class="mini-pizza" viewBox="0 0 140 140"><circle cx="70" cy="70" r="66" fill="url(#doughGrad)"/><circle cx="70" cy="70" r="56" fill="url(#sauceGrad)"/><circle cx="70" cy="70" r="50" fill="url(#cheeseGrad)"/>
+   612→            <g fill="#c6362b"><circle cx="52" cy="55" r="8"/><circle cx="90" cy="50" r="8"/></g>
+   613→            <g fill="#8b4a1f"><ellipse cx="72" cy="75" rx="9" ry="6"/></g>
+   614→            <g fill="#7a1a12"><circle cx="95" cy="90" r="6"/></g>
+   615→          </svg>
+   616→        </div>
+   617→        <div class="pick-info">
+   618→          <h4>Meat Feast</h4>
+   619→          <div class="price">$12 / $18 / $24</div>
+   620→          <button class="add-btn" onclick="window.open('https://wa.me/263776867162?text=Hi%20Pizza%20Dash%2C%20I%27d%20like%20to%20order%20a%20Meat%20Feast%20pizza','_blank')">Add to Order</button>
+   621→        </div>
+   622→      </div>
+   623→    </div>
+   624→  </div>
+   625→</section>
+   626→
+   627→<!-- ============ FOOTER ============ -->
+   628→<footer class="crumb-bg">
+   629→  <div class="wrap">
+   630→    <div class="footer-grid">
+   631→      <div>
+   632→        <div class="footer-logo">PIZZA<span>DASH</span></div>
+   633→        <p>Bulawayo's pizza-only kitchen. One product, done properly — hand-stretched dough, wood-fired every time.</p>
+   634→        <div class="social-row">
+   635→          <a href="#" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="#f6efe1"><path d="M13.5 21v-7.5H16l.5-3H13.5V8.5c0-.9.3-1.5 1.6-1.5H16.5V4.2c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.4-4 4.1V10.5H7.5v3H10V21h3.5z"/></svg></a>
+   636→          <a href="#" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f6efe1" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg></a>
+   637→          <a href="https://wa.me/263776867162" aria-label="WhatsApp"><svg width="16" height="16" viewBox="0 0 24 24" fill="#f6efe1"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1s-.5-.1-.7.1-.7 1-.9 1.2-.4.2-.7.1a8.2 8.2 0 0 1-2.4-1.5 9 9 0 0 1-1.7-2.1c-.2-.3 0-.5.1-.6l.5-.6c.1-.2.2-.3.3-.5s0-.4 0-.5-.7-1.7-1-2.3-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4A2.5 2.5 0 0 0 6 8.5c0 1.4 1 2.8 1.2 3s2 3 4.8 4.2c2.9 1.2 2.9.8 3.4.8s1.7-.7 1.9-1.4.2-1.2.2-1.4-.2-.2-.5-.3zM12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/></svg></a>
+   638→        </div>
+   639→      </div>
+   640→
+   641→      <div>
+   642→        <h4>Quick Links</h4>
+   643→        <ul class="footer-links">
+   644→          <li><a href="#home">Home</a></li>
+   645→          <li><a href="#menu">Pizza Menu</a></li>
+   646→          <li><a href="#about">About Us</a></li>
+   647→          <li><a href="#location">Location</a></li>
+   648→        </ul>
+   649→      </div>
+   650→
+   651→      <div>
+   652→        <h4>Contact</h4>
+   653→        <ul class="footer-links">
+   654→          <li>5 Pierse Rd, Parklands, Bulawayo</li>
+   655→          <li><a href="https://wa.me/263776867162">+263 77 686 7162</a></li>
+   656→          <li>Open daily · 10am – 9pm</li>
+   657→        </ul>
+   658→      </div>
+   659→
+   660→      <div>
+   661→        <h4>We Accept</h4>
+   662→        <div class="payment-row">
+   663→          <span class="pay-chip">EcoCash</span>
+   664→          <span class="pay-chip">Visa</span>
+   665→          <span class="pay-chip">Mastercard</span>
+   666→          <span class="pay-chip">Cash</span>
+   667→        </div>
+   668→      </div>
+   669→    </div>
+   670→
+   671→    <div class="footer-bottom">
+   672→      <span>© 2026 Pizza Dash. All rights reserved.</span>
+   673→      <span>Bulawayo, Zimbabwe</span>
+   674→    </div>
+   675→  </div>
+   676→</footer>
+   677→
+   678→</body>
+   679→</html>
