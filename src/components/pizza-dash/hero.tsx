@@ -1,9 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowDown, MessageCircle } from "lucide-react";
-import { WHATSAPP_LINK } from "@/lib/pizza-data";
-
+import { ArrowDown, ChefHat } from "lucide-react";
 import Image from "next/image";
 
 function FloatingIngredient({
@@ -114,9 +112,17 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="bg-char-texture bg-crumb relative min-h-screen overflow-hidden pt-24 pb-12 lg:pt-32"
+      className="relative min-h-screen overflow-hidden pt-24 pb-20 lg:pb-24 lg:pt-32 flex flex-col justify-center"
+      style={{
+        backgroundImage: "url('/bg_option_3.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center bottom",
+        backgroundRepeat: "no-repeat",
+        backgroundColor: "#1b1410"
+      }}
     >
-      <div className="mx-auto flex max-w-7xl flex-col items-center gap-8 px-6 lg:flex-row lg:gap-12 lg:px-8">
+      <div className="absolute inset-0 bg-gradient-to-r from-[#1b1410]/95 via-[#1b1410]/60 to-transparent pointer-events-none" />
+      <div className="mx-auto flex max-w-7xl flex-col items-center gap-8 px-6 lg:flex-row lg:gap-12 lg:px-8 relative z-10">
         {/* Left: Text */}
         <div className="flex-1 text-center lg:text-left">
           <motion.div
@@ -157,7 +163,7 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="mx-auto mb-8 max-w-md text-lg font-medium leading-relaxed text-cream/65 lg:mx-0"
           >
-            Fresh, hand-crafted, and delivered. Nothing else on the menu — because pizza is the only thing
+            Fresh, hand-crafted, and delivered. Nothing else on the menu, because pizza is the only thing
             we&apos;ve ever needed to get right.
           </motion.p>
 
@@ -168,13 +174,11 @@ export function Hero() {
             className="flex flex-wrap items-center justify-center gap-4 lg:justify-start"
           >
             <a
-              href={WHATSAPP_LINK}
-              target="_blank"
-              rel="noopener noreferrer"
+              href="#menu"
               className="inline-flex items-center gap-2 rounded-xl bg-tomato px-8 py-4 text-base font-extrabold text-cream shadow-lg shadow-tomato/35 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-tomato/50"
             >
-              <MessageCircle className="h-5 w-5" />
-              Order Now
+              <ChefHat className="h-5 w-5" />
+              Build Your Pizza
             </a>
             <a
               href="#menu"
@@ -184,6 +188,28 @@ export function Hero() {
               <ArrowDown className="h-4 w-4" />
             </a>
           </motion.div>
+
+          {/* Trust badges */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+            className="mt-10 flex flex-wrap items-center justify-center gap-5 lg:justify-start"
+          >
+            {[
+              ["🔥", "Hot & Fresh"],
+              ["🚀", "Fast Delivery"],
+              ["💬", "Order via WhatsApp"],
+            ].map(([icon, label]) => (
+              <span
+                key={label}
+                className="inline-flex items-center gap-1.5 text-sm font-semibold text-cream/50"
+              >
+                <span className="text-base">{icon}</span>
+                {label}
+              </span>
+            ))}
+          </motion.div>
         </div>
 
         {/* Right: Pizza visual */}
@@ -191,7 +217,7 @@ export function Hero() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.3, type: "spring" }}
-          className="relative flex flex-1 items-center justify-center"
+          className="relative flex flex-1 items-center justify-center mt-8 lg:mt-20"
         >
           <div className="relative flex items-center justify-center">
             {/* Wood board */}
@@ -280,7 +306,7 @@ export function Hero() {
       </div>
 
       {/* Crust divider */}
-      <div className="absolute bottom-0 left-0 right-0 h-20 -mb-px">
+      <div className="absolute bottom-0 left-0 right-0 h-20 -mb-px z-20">
         <svg viewBox="0 0 1200 120" preserveAspectRatio="none" className="h-full w-full">
           <path
             d="M0,40 Q40,10 90,42 T190,38 Q220,60 260,36 T350,44 Q380,20 420,46 T520,40 Q555,64 600,38 T700,42 Q735,18 780,44 T880,38 Q915,60 960,40 T1060,44 Q1100,20 1140,42 T1200,38 L1200,0 L0,0 Z"

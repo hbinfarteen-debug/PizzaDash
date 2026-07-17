@@ -7,21 +7,21 @@ import { WHATSAPP_LINK, WHATSAPP_NUMBER } from "@/lib/pizza-data";
 const steps = [
   {
     num: "01",
-    title: "Message us on WhatsApp",
+    title: "Build Your Order",
     description:
-      "Tap the button below or save +263 77 686 7162 and send us a message any time we're open. No app download, no account creation — just a simple message to get started with your order.",
+      "Browse our six signature flavours, pick your size (10\", 12\", or 15\"), and add any custom toppings. Add as many pizzas as you like to your cart.",
   },
   {
     num: "02",
-    title: "Pick your pizza & size",
+    title: "Checkout via WhatsApp",
     description:
-      "Choose from our six signature flavours, tell us your preferred size (10\", 12\", or 15\"), and confirm your delivery address anywhere in Bulawayo. Custom toppings are always welcome.",
+      "Hit checkout and we'll open WhatsApp with your full order ready to send — no forms, no account creation. Just confirm your delivery address and hit send.",
   },
   {
     num: "03",
-    title: "Pay & track your dash",
+    title: "Pay & Track Your Dash",
     description:
-      "Pay via EcoCash, Visa, Mastercard, or cash on delivery. We'll message you the moment your pizza leaves the oven so you know exactly when to expect your food at the door.",
+      "Pay via EcoCash, Visa, Mastercard, or cash on delivery. We'll message you the moment your pizza leaves the oven so you know exactly when to expect it at the door.",
   },
 ];
 

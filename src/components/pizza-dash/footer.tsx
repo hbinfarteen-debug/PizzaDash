@@ -20,7 +20,7 @@ export function Footer() {
               <span className="text-2xl text-cheese tracking-wide">DASH</span>
             </div>
             <p className="mb-4 text-sm leading-relaxed text-cream/65">
-              Bulawayo&apos;s pizza-only kitchen. One product, done properly — hand-stretched dough,
+              Bulawayo&apos;s pizza-only kitchen. One product, done properly: hand-stretched dough,
               wood-fired every time.
             </p>
             <div className="flex gap-3">
@@ -96,7 +96,7 @@ export function Footer() {
               Contact
             </h4>
             <ul className="space-y-2.5 text-sm text-cream/65">
-              <li>5 Pierse Rd, Parklands, Bulawayo</li>
+              <li>SHOP 33, Ascot, Bulawayo</li>
               <li>
                 <a
                   href={WHATSAPP_LINK}

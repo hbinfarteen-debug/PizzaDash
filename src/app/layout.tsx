@@ -11,7 +11,7 @@ const plusJakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Pizza Dash — Bulawayo's Finest Pizza Delivery",
+  title: "Pizza Dash: Bulawayo's Finest Pizza Delivery",
   description:
     "Fresh, hand-crafted wood-fired pizza delivered to your door in Bulawayo. Six signature flavors, 24-hour proofed dough, and WhatsApp ordering. Open daily 10am–9pm.",
   keywords: [
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Pizza Dash" }],
   openGraph: {
-    title: "Pizza Dash — Bulawayo's Finest Pizza",
+    title: "Pizza Dash: Bulawayo's Finest Pizza",
     description:
       "Fresh, hand-crafted wood-fired pizza delivered across Bulawayo. Order via WhatsApp.",
     type: "website",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Pizza Dash — Bulawayo's Finest Pizza",
+    title: "Pizza Dash: Bulawayo's Finest Pizza",
     description:
       "Fresh, hand-crafted wood-fired pizza delivered across Bulawayo. Order via WhatsApp.",
   },

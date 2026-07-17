@@ -21,7 +21,7 @@ const values = [
     icon: Clock,
     title: "Zero Pre-Made Stock",
     description:
-      "We don't make pizza until you order it. No warming trays, no pre-baked bases sitting under heat lamps. Your pizza goes from stretched dough to out of the oven to in your hands — that's the Pizza Dash promise.",
+      "We don't make pizza until you order it. No warming trays, no pre-baked bases sitting under heat lamps. Your pizza goes from stretched dough to out of the oven to in your hands: that's the Pizza Dash promise.",
   },
 ];
 
@@ -51,13 +51,13 @@ export function AboutSection() {
               One Pizza. Done Properly.
             </h2>
             <p className="mb-4 text-base leading-relaxed text-muted-text">
-              Pizza Dash started with a simple belief: if you focus on doing one thing — pizza — and do it
+              Pizza Dash started with a simple belief: if you focus on doing one thing, pizza, and do it
               better than anyone else, people will notice. No burgers, no chicken wings, no sides. Just
               pizza. Fresh dough, quality toppings, wood-fired every single time.
             </p>
             <p className="mb-6 text-base leading-relaxed text-muted-text">
-              Based right here in Parklands, Bulawayo, we&apos;ve served thousands of pizzas since we fired up
-              our first oven. Our 24-hour proofed dough is our signature — it&apos;s what gives our crust that
+              Based right here in Bulawayo, we&apos;ve served thousands of pizzas since we fired up
+              our first oven. Our 24-hour proofed dough is our signature; it&apos;s what gives our crust that
               unique chewy-then-crispy texture that people drive across the city for.
             </p>
             <div className="flex flex-wrap gap-6">
@@ -113,7 +113,7 @@ export function AboutSection() {
                   className="rounded-lg bg-cheese/90 px-3 py-1.5 text-xs font-extrabold text-char"
                   style={{ fontFamily: "Caveat, cursive", fontSize: "1.1rem" }}
                 >
-                  Our kitchen, Parklands Bulawayo
+                  Our kitchen, Ascot Bulawayo
                 </span>
               </div>
             </motion.div>

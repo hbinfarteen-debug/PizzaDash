@@ -11,11 +11,31 @@ export interface PizzaItem {
   isBestSeller?: boolean;
 }
 
+export interface Topping {
+  id: string;
+  name: string;
+  price: number;
+}
+
 export interface CartItem {
   pizza: PizzaItem;
   size: PizzaSize;
   quantity: number;
+  toppings: Topping[];
 }
+
+export const TOPPINGS: Topping[] = [
+  { id: "extra-cheese",   name: "Extra Cheese",   price: 1.00 },
+  { id: "extra-pepperoni", name: "Extra Pepperoni", price: 1.00 },
+  { id: "mushrooms",      name: "Mushrooms",       price: 0.50 },
+  { id: "olives",         name: "Olives",          price: 0.50 },
+  { id: "onions",         name: "Onions",          price: 0.50 },
+  { id: "green-peppers",  name: "Green Peppers",   price: 0.50 },
+  { id: "bacon",          name: "Bacon",           price: 1.00 },
+  { id: "ham",            name: "Ham",             price: 1.00 },
+  { id: "pineapple",      name: "Pineapple",       price: 0.50 },
+  { id: "chilli-flakes",  name: "Chilli Flakes",   price: 0.50 },
+];
 
 export const PIZZAS: PizzaItem[] = [
   {
@@ -94,7 +114,7 @@ export const TESTIMONIALS = [
   {
     name: "Nomsa N.",
     role: "Verified Buyer",
-    text: "Ordered for my daughter's birthday party — 6 large pizzas, all gone in 20 minutes. The Meat Feast is absolutely incredible!",
+    text: "Ordered for my daughter's birthday party: 6 large pizzas, all gone in 20 minutes. The Meat Feast is absolutely incredible!",
     rating: 5,
   },
   {
@@ -132,11 +152,11 @@ export const FAQS = [
   },
   {
     q: "Can I customize my pizza toppings?",
-    a: "Absolutely! While our six signature flavours are designed to be perfect as-is, you can request extra toppings, no onions, extra cheese — just let us know in your WhatsApp message.",
+    a: "Absolutely! While our six signature flavours are designed to be perfect as-is, you can request extra toppings, no onions, extra cheese; just let us know in your WhatsApp message.",
   },
   {
     q: "Do you offer any deals or combos?",
-    a: "Yes! We regularly run specials — follow us on Instagram and Facebook to catch our latest deals. We also offer bundle pricing for orders of 3 or more pizzas.",
+    a: "Yes! We regularly run specials; follow us on Instagram and Facebook to catch our latest deals. We also offer bundle pricing for orders of 3 or more pizzas.",
   },
   {
     q: "Is your dough really proofed for 24 hours?",

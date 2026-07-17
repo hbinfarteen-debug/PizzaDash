@@ -4,13 +4,26 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, Plus, Minus, Trash2, MessageCircle } from "lucide-react";
 import Image from "next/image";
 import { useCartStore } from "@/store/cart";
-import { SIZE_LABELS, type PizzaSize } from "@/lib/pizza-data";
+import { SIZE_LABELS, type PizzaSize, type Topping, type CartItem } from "@/lib/pizza-data";
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
+
+function cartItemKey(item: CartItem): string {
+  return `${item.pizza.id}|${item.size}|${item.toppings.map(t => t.id).sort().join(",")}`;
+}
+
+function toppingsSummary(toppings: Topping[]): string {
+  if (toppings.length === 0) return "";
+  return toppings.map(t => t.name).join(", ");
+}
+
+function toppingsPrice(toppings: Topping[]): number {
+  return toppings.reduce((sum, t) => sum + t.price, 0);
+}
 
 export function CartDrawer() {
   const { items, isOpen, setOpen, removeItem, updateQuantity, clearCart, totalPrice, totalItems, sendToWhatsApp } =
@@ -61,67 +74,75 @@ export function CartDrawer() {
             {/* Cart items */}
             <div className="flex-1 overflow-y-auto px-6 py-4">
               <AnimatePresence mode="popLayout">
-                {items.map((item) => (
-                  <motion.div
-                    key={`${item.pizza.id}-${item.size}`}
-                    layout
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20, height: 0 }}
-                    className="mb-4 flex gap-4 rounded-xl border border-crust/12 bg-white p-3"
-                  >
-                    {/* Mini pizza thumbnail */}
-                    <div className="relative flex h-16 w-16 flex-shrink-0 overflow-hidden rounded-lg bg-semolina">
-                      <Image
-                        src={item.pizza.image}
-                        alt={item.pizza.name}
-                        fill
-                        className="object-cover"
-                        sizes="64px"
-                      />
-                    </div>
+                {items.map((item) => {
+                  const key = cartItemKey(item);
+                  return (
+                    <motion.div
+                      key={key}
+                      layout
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -20, height: 0 }}
+                      className="mb-4 flex gap-4 rounded-xl border border-crust/12 bg-white p-3"
+                    >
+                      {/* Mini pizza thumbnail */}
+                      <div className="relative flex h-16 w-16 flex-shrink-0 overflow-hidden rounded-lg bg-semolina">
+                        <Image
+                          src={item.pizza.image}
+                          alt={item.pizza.name}
+                          fill
+                          className="object-cover"
+                          sizes="64px"
+                        />
+                      </div>
 
-                    <div className="flex flex-1 flex-col justify-between">
-                      <div className="flex items-start justify-between">
-                        <div>
-                          <div className="text-sm font-bold text-ink">{item.pizza.name}</div>
-                          <div className="text-xs text-muted-text">{SIZE_LABELS[item.size]}</div>
-                        </div>
-                        <button
-                          onClick={() => removeItem(item.pizza.id, item.size)}
-                          className="text-muted-text transition-colors hover:text-tomato"
-                          aria-label="Remove item"
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </button>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
+                      <div className="flex flex-1 flex-col justify-between">
+                        <div className="flex items-start justify-between">
+                          <div>
+                            <div className="text-sm font-bold text-ink">{item.pizza.name}</div>
+                            <div className="text-xs text-muted-text">{SIZE_LABELS[item.size]}</div>
+                            {item.toppings.length > 0 && (
+                              <div className="mt-0.5 text-[11px] leading-tight text-muted-text/70">
+                                + {toppingsSummary(item.toppings)}
+                              </div>
+                            )}
+                          </div>
                           <button
-                            onClick={() =>
-                              updateQuantity(item.pizza.id, item.size, item.quantity - 1)
-                            }
-                            className="flex h-7 w-7 items-center justify-center rounded-lg bg-semolina-2 text-ink transition-colors hover:bg-tomato hover:text-cream"
+                            onClick={() => removeItem(key)}
+                            className="text-muted-text transition-colors hover:text-tomato"
+                            aria-label="Remove item"
                           >
-                            <Minus className="h-3 w-3" />
-                          </button>
-                          <span className="w-6 text-center text-sm font-bold">{item.quantity}</span>
-                          <button
-                            onClick={() =>
-                              updateQuantity(item.pizza.id, item.size, item.quantity + 1)
-                            }
-                            className="flex h-7 w-7 items-center justify-center rounded-lg bg-semolina-2 text-ink transition-colors hover:bg-basil hover:text-cream"
-                          >
-                            <Plus className="h-3 w-3" />
+                            <Trash2 className="h-4 w-4" />
                           </button>
                         </div>
-                        <span className="text-sm font-extrabold text-ink">
-                          ${item.pizza.prices[item.size] * item.quantity}
-                        </span>
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2">
+                            <button
+                              onClick={() =>
+                                updateQuantity(key, item.quantity - 1)
+                              }
+                              className="flex h-7 w-7 items-center justify-center rounded-lg bg-semolina-2 text-ink transition-colors hover:bg-tomato hover:text-cream"
+                            >
+                              <Minus className="h-3 w-3" />
+                            </button>
+                            <span className="w-6 text-center text-sm font-bold">{item.quantity}</span>
+                            <button
+                              onClick={() =>
+                                updateQuantity(key, item.quantity + 1)
+                              }
+                              className="flex h-7 w-7 items-center justify-center rounded-lg bg-semolina-2 text-ink transition-colors hover:bg-basil hover:text-cream"
+                            >
+                              <Plus className="h-3 w-3" />
+                            </button>
+                          </div>
+                          <span className="text-sm font-extrabold text-ink">
+                            ${((item.pizza.prices[item.size] + toppingsPrice(item.toppings)) * item.quantity)}
+                          </span>
+                        </div>
                       </div>
-                    </div>
-                  </motion.div>
-                ))}
+                    </motion.div>
+                  );
+                })}
               </AnimatePresence>
             </div>
 

@@ -1,13 +1,17 @@
 import { create } from "zustand";
-import type { CartItem, PizzaItem, PizzaSize } from "@/lib/pizza-data";
+import type { CartItem, PizzaItem, PizzaSize, Topping } from "@/lib/pizza-data";
+
+function itemKey(id: string, size: PizzaSize, toppings: Topping[]): string {
+  return `${id}|${size}|${toppings.map(t => t.id).sort().join(",")}`;
+}
 
 interface CartStore {
   items: CartItem[];
   isOpen: boolean;
   setOpen: (open: boolean) => void;
-  addItem: (pizza: PizzaItem, size: PizzaSize) => void;
-  removeItem: (pizzaId: string, size: PizzaSize) => void;
-  updateQuantity: (pizzaId: string, size: PizzaSize, qty: number) => void;
+  addItem: (pizza: PizzaItem, size: PizzaSize, toppings?: Topping[]) => void;
+  removeItem: (key: string) => void;
+  updateQuantity: (key: string, qty: number) => void;
   clearCart: () => void;
   totalItems: () => number;
   totalPrice: () => number;
@@ -20,40 +24,41 @@ export const useCartStore = create<CartStore>((set, get) => ({
 
   setOpen: (open: boolean) => set({ isOpen: open }),
 
-  addItem: (pizza: PizzaItem, size: PizzaSize) => {
+  addItem: (pizza: PizzaItem, size: PizzaSize, toppings: Topping[] = []) => {
     const items = get().items;
+    const key = itemKey(pizza.id, size, toppings);
     const existing = items.find(
-      (i) => i.pizza.id === pizza.id && i.size === size
+      (i) => itemKey(i.pizza.id, i.size, i.toppings) === key
     );
     if (existing) {
       set({
         items: items.map((i) =>
-          i.pizza.id === pizza.id && i.size === size
+          itemKey(i.pizza.id, i.size, i.toppings) === key
             ? { ...i, quantity: i.quantity + 1 }
             : i
         ),
       });
     } else {
-      set({ items: [...items, { pizza, size, quantity: 1 }] });
+      set({ items: [...items, { pizza, size, quantity: 1, toppings }] });
     }
   },
 
-  removeItem: (pizzaId: string, size: PizzaSize) => {
+  removeItem: (key: string) => {
     set({
       items: get().items.filter(
-        (i) => !(i.pizza.id === pizzaId && i.size === size)
+        (i) => itemKey(i.pizza.id, i.size, i.toppings) !== key
       ),
     });
   },
 
-  updateQuantity: (pizzaId: string, size: PizzaSize, qty: number) => {
+  updateQuantity: (key: string, qty: number) => {
     if (qty <= 0) {
-      get().removeItem(pizzaId, size);
+      get().removeItem(key);
       return;
     }
     set({
       items: get().items.map((i) =>
-        i.pizza.id === pizzaId && i.size === size
+        itemKey(i.pizza.id, i.size, i.toppings) === key
           ? { ...i, quantity: qty }
           : i
       ),
@@ -67,7 +72,11 @@ export const useCartStore = create<CartStore>((set, get) => ({
 
   totalPrice: () =>
     get().items.reduce(
-      (sum, i) => sum + i.pizza.prices[i.size] * i.quantity,
+      (sum, i) => {
+        const base = i.pizza.prices[i.size] * i.quantity;
+        const toppingsCost = i.toppings.reduce((t, top) => t + top.price, 0) * i.quantity;
+        return sum + base + toppingsCost;
+      },
       0
     ),
 
@@ -83,7 +92,14 @@ export const useCartStore = create<CartStore>((set, get) => ({
 
     let msg = "Hi Pizza Dash! I'd like to order:\n\n";
     items.forEach((item) => {
-      msg += `- ${item.quantity}x ${item.pizza.name} (${sizeLabels[item.size]}) — $${item.pizza.prices[item.size] * item.quantity}\n`;
+      const basePrice = item.pizza.prices[item.size];
+      const toppingsCost = item.toppings.reduce((t, top) => t + top.price, 0);
+      const lineTotal = (basePrice + toppingsCost) * item.quantity;
+      msg += `- ${item.quantity}x ${item.pizza.name} (${sizeLabels[item.size]}): $${lineTotal}\n`;
+      if (item.toppings.length > 0) {
+        const toppingsStr = item.toppings.map(t => `${t.name} (+$${t.price.toFixed(2)})`).join(", ");
+        msg += `  Toppings: ${toppingsStr}\n`;
+      }
     });
     msg += `\nTotal: $${totalPrice()}\n\nPlease confirm availability and delivery time. Thank you!`;
 

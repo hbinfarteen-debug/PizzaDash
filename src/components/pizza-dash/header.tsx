@@ -63,6 +63,19 @@ export function Header() {
 
           {/* Right side */}
           <div className="flex items-center gap-3">
+            {/* Mobile menu toggle */}
+            <button
+              onClick={() => setMobileOpen(!mobileOpen)}
+              className="text-cream md:hidden"
+              aria-label="Toggle menu"
+            >
+              {mobileOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
+            </button>
+
             {/* Cart button */}
             <button
               onClick={() => setOpen(true)}
@@ -78,44 +91,6 @@ export function Header() {
                 >
                   {totalItems}
                 </motion.span>
-              )}
-            </button>
-
-            {/* WhatsApp CTA - desktop */}
-            <a
-              href={WHATSAPP_LINK}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden items-center gap-2 rounded-lg bg-whatsapp px-4 py-2.5 text-sm font-extrabold text-white shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-whatsapp/40 md:inline-flex"
-            >
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-              >
-                <path
-                  d="M17.5 14.4c-.3-.1-1.7-.9-2-1s-.5-.1-.7.1-.7 1-.9 1.2-.4.2-.7.1a8.2 8.2 0 0 1-2.4-1.5 9 9 0 0 1-1.7-2.1c-.2-.3 0-.5.1-.6l.5-.6c.1-.2.2-.3.3-.5s0-.4 0-.5-.7-1.7-1-2.3-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4A2.5 2.5 0 0 0 6 8.5c0 1.4 1 2.8 1.2 3s2 3 4.8 4.2c2.9 1.2 2.9.8 3.4.8s1.7-.7 1.9-1.4.2-1.2.2-1.4-.2-.2-.5-.3z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.1 8.1 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"
-                  fill="currentColor"
-                />
-              </svg>
-              Order Now
-            </a>
-
-            {/* Mobile menu toggle */}
-            <button
-              onClick={() => setMobileOpen(!mobileOpen)}
-              className="text-cream md:hidden"
-              aria-label="Toggle menu"
-            >
-              {mobileOpen ? (
-                <X className="h-6 w-6" />
-              ) : (
-                <Menu className="h-6 w-6" />
               )}
             </button>
           </div>
