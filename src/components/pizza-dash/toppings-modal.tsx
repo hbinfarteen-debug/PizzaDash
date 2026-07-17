@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Check } from "lucide-react";
 import { TOPPINGS, SIZE_LABELS, type PizzaItem, type PizzaSize, type Topping } from "@/lib/pizza-data";
 import {
@@ -16,10 +16,18 @@ interface ToppingsModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onConfirm: (toppings: Topping[]) => void;
+  initialToppings?: Topping[];
+  editMode?: boolean;
 }
 
-export function ToppingsModal({ pizza, size, open, onOpenChange, onConfirm }: ToppingsModalProps) {
+export function ToppingsModal({ pizza, size, open, onOpenChange, onConfirm, initialToppings, editMode }: ToppingsModalProps) {
   const [selected, setSelected] = useState<Topping[]>([]);
+
+  useEffect(() => {
+    if (open) {
+      setSelected(initialToppings || []);
+    }
+  }, [open]);
 
   const toggle = (topping: Topping) => {
     setSelected((prev) =>
@@ -117,7 +125,7 @@ export function ToppingsModal({ pizza, size, open, onOpenChange, onConfirm }: To
             className="flex w-full items-center justify-center gap-2 rounded-xl bg-ink py-3.5 text-sm font-extrabold text-cream shadow-lg transition-all hover:bg-tomato-dark"
           >
             <Check className="h-4 w-4" />
-            Add to Cart
+            {editMode ? "Update Item" : "Add to Cart"}
           </button>
         </div>
       </DialogContent>

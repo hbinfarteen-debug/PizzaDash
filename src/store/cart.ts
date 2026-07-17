@@ -16,11 +16,15 @@ interface CartStore {
   totalItems: () => number;
   totalPrice: () => number;
   sendToWhatsApp: () => void;
+  editingItem: CartItem | null;
+  setEditingItem: (item: CartItem | null) => void;
+  updateItemToppings: (key: string, toppings: Topping[]) => void;
 }
 
 export const useCartStore = create<CartStore>((set, get) => ({
   items: [],
   isOpen: false,
+  editingItem: null,
 
   setOpen: (open: boolean) => set({ isOpen: open }),
 
@@ -65,7 +69,19 @@ export const useCartStore = create<CartStore>((set, get) => ({
     });
   },
 
-  clearCart: () => set({ items: [] }),
+  clearCart: () => set({ items: [], editingItem: null }),
+
+  setEditingItem: (item: CartItem | null) => set({ editingItem: item }),
+
+  updateItemToppings: (key: string, toppings: Topping[]) => {
+    set({
+      items: get().items.map((i) =>
+        itemKey(i.pizza.id, i.size, i.toppings) === key
+          ? { ...i, toppings }
+          : i
+      ),
+    });
+  },
 
   totalItems: () =>
     get().items.reduce((sum, i) => sum + i.quantity, 0),
